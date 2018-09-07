@@ -1,0 +1,79 @@
+.container {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.msg-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.msg-table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42;
+    text-align: left;
+    margin-top: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.msg-table>thead>tr>th:nth-child(1){ width: 30%;}
+.msg-table>thead>tr>th:nth-child(2){ width: 30%;}
+.msg-table>thead>tr>th:nth-child(3){ width: 40%;}
+
+.msg-table>tbody>tr>td {
+    padding: 8px;
+    line-height: 1.42;
+    text-align: left;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.msg-table>tbody>tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.msg-table>tbody>tr:hover {
+    background-color: #d4d4d4;
+    cursor: pointer;
+}
+
+.message-contents {
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    width: 40%;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+    z-index: 5001;
+}
+
+.container {
+    margin-bottom: 200px;
+}
+
+.btn-50 {
+    width: calc(50% - 5px)!important;
+    float: left;
+    margin: 0 2.5px;
+}
+
+#msg-wirter {
+    text-align: right;
+}
+
+#msg-text {
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 3px;
+    width: 100%;
+    resize: none;
+}

@@ -1,0 +1,475 @@
+html, body, #container, h1, p, hr, h5, footer{
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-overflow-scrolling : touch;
+}
+
+body {
+    width: 100%;
+    overflow-x:hidden; 
+    overflow-y:auto;
+    background-color: rgb(0, 0, 0);
+}
+
+p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap:break-word;
+    padding: 0 10px;
+}
+
+::-webkit-scrollbar {display:none;}
+
+#container {
+    max-width: 1300px;
+    margin: auto;
+    height: auto;
+}
+
+.ani {
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+}
+
+.ani .left-1 div a h3 {
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 2s;
+    -webkit-animation-duration: 2s;
+}
+
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateX(-30%);
+    } 
+}
+
+#left, #left-copy{
+    width: 300px;
+    height: 100vh;
+    float: left;
+    position: fixed;
+    top: 0;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border: 0px;
+}
+
+#left-copy {
+    display: none;
+}
+
+.left-1 div{
+    margin-left: 30px;
+    border: 0px;
+}
+
+.left-1 a {
+    text-decoration: none;
+    color: white;
+}
+
+#right {
+    width: calc(100% - 300px);
+    float: right;
+    background-color: white;
+    padding: 10px;
+    overflow-y: scroll; -ms-overflow-style: none;
+}
+
+#hp-left {
+    width: 85%;
+    float: left;
+}
+
+#leftMenu {
+    display: none;
+    width: 50px;
+}
+
+#leftMenu:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#leftMenu img{
+    width: 100%;
+}
+
+#hp-right {
+    width: 15%;
+    float: right;
+    text-align: right;
+}
+
+#hp-right img{
+    width: 70px;
+    border-radius: 50%;
+    display: none;
+}
+
+#img-box {
+    width: 60%;
+    margin-left: 10%;
+    margin-top: 30px;
+}
+
+#img-box > img {
+    width: 100%;
+    border-radius: 10px;
+    border: 3px solid #fff;
+}
+
+.pageMove {
+    width: calc((100% + 30px)*0.6);
+    cursor: pointer;
+}
+
+.pageMove:hover {
+    color: black;
+    background-color: white;
+}
+
+/* right 시작 부분 */
+#filter {
+    margin-top:20px;
+    margin-left: 5px;
+    height: 50px;
+}
+
+#filter a{
+    height: calc( 50px - 14px);
+    line-height: 40px;
+    text-decoration: none;
+    color: black;
+    font-size: 1.2em;
+    background-color: white;
+    padding: 7px;
+    display: none;
+}
+
+#filter a:hover{
+    background-color: #ebe6e6;
+}
+
+#login {
+    padding: 5px;
+}
+
+#login > a {
+    text-decoration: none;
+    color: black;
+}
+
+#div_hr {
+    clear: both;
+    margin-bottom: 10px;
+}
+
+#hp #div_hr > hr{
+    height: 1px;
+    background-color: silver;
+}
+
+#right-2 {
+    background-color: white;
+}
+
+/* 포트폴리오 컨텐츠를 감싸는 Article */
+.arc {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 포트폴리오 컨텐츠 하나하나를 감싸는 DIV 컨텐츠의 width에 영향 */
+.arc-box {
+    width: 300px;
+    box-sizing: border-box;
+    margin: 10px auto;
+    text-align: center;
+    opacity: 0.7;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+}
+
+.arc-box:hover {
+    opacity: 1;
+    border: 1px solid #c6c6c6;
+}
+
+.arc-box img {
+    width: 280px;
+    height: 400px;
+}
+
+.arc-box a{
+    position: relative;
+    top: 3px;
+}
+
+.arc-box > a:hover{
+   background-color: antiquewhite;
+}
+
+.arc-box-text {
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+}
+
+.arc-box-text > h5 {
+    max-width: 200px;
+    margin: 0 auto;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.arc-box-text p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-wrap:break-word;
+}
+
+#page {
+    clear: both;
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* 글쓰기 버튼 */
+#writebtn {
+    text-align: center;
+    background-color: rgb(51,51,51);
+    float: right;
+    color: white;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#about h1, #skills h1, #contact h1 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#about p {
+    line-height: 22px;
+    vertical-align: middle;
+}
+
+#skills h4{
+    margin: 10px 0 0;
+}
+
+.skills-con {
+    padding: 0 10px;
+}
+
+ .bar_100 {
+    background-color: silver;
+    text-align: center; 
+ }
+        
+ .bar {
+     height: calc(30px - 5px);
+     line-height: 25px;
+     vertical-align: middle;
+     background-color: black;
+     color: white;
+ }
+
+ .sub_bar_95 {width: 95%;}
+ .sub_bar_85 {width: 85%;}
+ .sub_bar_80 {width: 80%;}
+
+.rows {
+    width: 100%
+}
+
+.rows div {
+    display: inline-block;
+    float: left;
+    width: 33.333333%;
+    text-align: center;
+}
+
+.dls-three p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-wrap:break-word;
+}
+
+#contact_info {
+    clear: both;
+    margin-top: 20px;
+}
+
+#contact_info input {
+    width: 99%;
+    height: 30px;
+}
+
+#contact_info > :nth-child(7) {
+    width: 20%;
+    margin-top: 5px;
+}
+
+#contact_info h4 {
+    margin: 10px 0 0;
+}
+
+.contact-text {
+    line-height: 60px;
+    vertical-align: middle;
+}
+
+#usr {
+    resize: none; 
+    width: 99%;
+}
+
+footer {
+    float: left;
+    height: 10vh;
+    width: 100%;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    font-style: italic;
+}
+
+footer > div {
+    width: 100%;
+    margin:auto;
+    text-align: center;
+    padding: 34px 0;
+    background: rgb(51, 51, 51);   
+}
+
+#login-box {
+    width: 50vw;
+    height: 180px;
+    min-width: 300px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 2;
+    display: none;
+}
+
+.login-btn-box {
+    padding-top: 10px;
+    width: 100%;
+    float: left;
+}
+
+.login-btn-box > input {
+    width: calc(50% - 5px);
+    float: left;
+}
+
+.login-btn-box > input[value="Login"] {
+    margin-left: 5px;
+}
+
+.login-btn-box > input[value="Join"] {
+    margin-right: 5px;
+}
+
+.input-group:nth-child(1) {
+    margin-bottom: 10px;
+}
+
+.join-box, .send-mail {
+    width: 50vw;
+    height: 20vh;
+    min-width: 300px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 2;
+    text-align: center;
+    
+    display: none;
+}
+
+.join-box-text h3 {
+    margin: 0;
+}
+
+.join-box-text p {
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+
+#join_email {
+    border-radius: 5px;
+}
+
+.join-box-input {
+    width: 100%;
+}
+
+.join-btn-box input{
+    margin-top: 10px;
+    width: 100%;
+}
+
+.send-mail-message p {
+    line-height: 83px;
+    vertical-align: middle;
+}
+
+#layer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1;
+    background-color: black;
+    opacity: 0.7;
+    display: none;
+}
+
+.paging-box {
+    text-align: center;
+}
+
+
+/****************************/

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+	<title> Detail </title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="lib/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- include summernote css/js -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+    <link rel="stylesheet" type="text/css" href="css/detail.css">
+    
+    <script type="text/javascript">
+    function getBoardNo(){
+		var data = {};
+    	var queryString = location.href.split('?');
+    	var params = queryString[1].split('&');
+    	for (var i=0; i<params.length; i++){
+    		var param = params[i].split('=');
+    		data[param[0]] = param[1];
+    	}
+    	console.log(data);
+    	return data.boardNo;
+	}
+    </script>
+    
+    <script>
+    	var boardNo = getBoardNo();
+    	console.log(boardNo);
+    	
+    	$(document).ready(function(){
+    		$("#btnDelete").show();
+    		$("#btnUpdate").show();
+    		$.ajax({
+    			type:"post",
+    			url:"/shs/boardOne",
+    			data:{"boardNo" : boardNo}
+    		}).done(function(data){
+    			
+    			d = JSON.parse(data);
+    			var boardOne = d.boardOne;
+    			var category = boardOne.category;
+    			var boardContents = boardOne.boardContents;
+    			
+    			$("#category").text(category);
+    			$(".summernote-con").text(boardContents);
+    		});
+    		
+    		$.ajax({
+    			url: "/shs/userLevel"
+    		}).done(function(data){
+    			d = JSON.parse(data);
+    			console.log(d);
+    			
+    			var userNo = d.userNo; 
+    			
+    			if(d.status == "2"){
+    				$("#btnDelete").hide();
+    				$("#btnUpdate").hide();
+    			}
+    		});
+    		
+    		$("#btnUpdate").on("click", function(){
+    			location.href="boardUpdate.html?boardNo=" + boardNo;
+    		});
+    		
+    		$("#btnDelete").on("click", function(){
+    			$.ajax({
+    				url : "/shs/boardDelete",
+    				data : {"boardNo" : boardNo}
+    			}).done(function(data){
+    				
+					var d = JSON.parse(data)
+					
+					if(d.status == 1){
+						location.href = "index.html";	
+					}
+    			});
+    		});
+    		
+    	});
+    </script>
+</head>
+<body>
+    <div class="wrap-all-con">
+        <div class="top-img"></div>
+        <div class="write-con">
+            <!-- 카테고리 -->
+            <div class="select-write-type">
+            <select class="form-control" id="sel1" disabled>
+                <option disabled selected id="category"></option>
+            </select>
+                <!-- 상세 내용 부분 -->
+            </div>
+            <div class="summernote-con"></div>
+            
+            <div class="write-button-con">
+                <div id="template">
+                    
+                </div>
+                <input type="button" class="btn btn-primary" id="detail-list" value="목록">
+                <input type="button" class="btn btn-primary" id="btnUpdate" value="수정">
+                <input type="button" class="btn btn-primary" id="btnDelete" value="삭제">
+            </div>
+            <!-- 댓글 작성 부분 -->
+            <div class="reply-box">
+                <div class="box-top">
+                    <div class="top-left">
+                        <span>작성자</span>
+                    </div>
+                    <div class="top-right">
+                        <span>2018-05-23</span>
+                    </div>
+                </div>
+                <div class="box-middle">
+                    <textarea class="reply-content-box"></textarea>
+                </div>
+                <div class="box-bottom">
+                    <input type="button" class="btn btn-default" value="등록">
+                </div>
+            </div>
+            <!-- 작성한 댓글 리스트 -->
+            <div class="comment">
+                <div class="comment-top">
+                    <div class="comment-top-left"><span>작성자</span></div>
+                    <div class="comment-top-right"><span>2018-05-21</span></div>
+                </div>
+                <div class="comment-bottom">
+                   <div class="comment-content">
+                       <p>
+                        와 ! 자바란 이런것이군요~~ 한 수 배우고 갑니다.
+                        aaaaaaaaaaaaaaaadjsdkjsadlajsdklajsdkl
+                        asjdklasjdklasjdklasdasdlasjdlasjdlasdajskldasdasd
+                        </p>
+                    </div>
+                </div>
+                <div class="comment-btn-con">
+                    <a href="#">수정</a>
+                    <a href="#">삭제</a>
+                </div>
+            </div>
+            
+            <div class="comment">
+                <div class="comment-top">
+                    <div class="comment-top-left"><span>이세웅</span></div>
+                    <div class="comment-top-right"><span>2018-05-22</span></div>
+                </div>
+                <div class="comment-bottom">
+                   <div class="comment-content">
+                       <p>
+                        님 저보다 못하는듯~~
+                        </p>
+                    </div>
+                </div>
+                <div class="comment-btn-con">
+                    <a href="#">수정</a>
+                    <a href="#">삭제</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

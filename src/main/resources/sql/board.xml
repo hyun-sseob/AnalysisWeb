@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="board">
+  
+  	<select id="getBoardNo" resultType="Integer">
+		select 
+			case when max(boardNo) > 0 then max(boardNo)
+				else 1
+			end as boardNo
+		from board;	
+	</select>
+  
+  	<select id="boardList" resultType="HashMap">
+  		select * from board where delYn = 'N'
+  	</select>
+  	
+  	<insert id="boardInsert" parameterType="HashMap">
+		insert into board 
+			(boardTitle, boardContents, userNo, category, regDate)
+		values
+			(#{boardTitle}, #{boardContents}, #{userNo}, #{category}, DATE_FORMAT(NOW(),'%Y%m%d'));
+	</insert>
+	
+	<select id="boardOne" parameterType="HashMap" resultType="HashMap">
+		select * from board where boardNo = #{boardNo}
+	</select>
+	
+	<update id="boardUpdate" parameterType="HashMap">
+		
+		update board set boardTitle = #{boardTitle},
+						 boardContents = #{boardContents},
+						 category = #{category}
+					 where boardNo = #{boardNo}
+	</update>
+	
+	<update id="boardDelete" parameterType="HashMap">
+		update board
+		set delYn = 'Y'
+		where boardNo = #{boardNo}
+	</update>
+  	
+ <!-- =====================================여기서부터는 파일 ============================================ -->
+ 
+  	<select id="filesAndboard" resultType="HashMap">
+		select b.boardNo, boardTitle, boardContents, fileURL 
+			from board as b
+			left outer join files as f
+			on (b.boardNo = f.boardNo) where b.delYn = 'N'
+	</select>
+	
+	
+	<!-- =====================================Resume/Profile============================================== -->
+	<select id="resumeI" resultType="HashMap">
+		select * from resume where delYn = 'N' and type = 'I'
+	</select>
+	
+	<select id="resumeR" resultType="HashMap">
+		select * from resume where delYn = 'N' and type = 'R'
+	</select>
+	
+	<select id="resumeS" resultType="HashMap">
+		select * from resume where delYn = 'N' and type = 'S'
+	</select>
+	
+	<select id="profileList" resultType="HashMap">
+		select * from profile where profileNo = 1
+	</select>
+	
+  </mapper>

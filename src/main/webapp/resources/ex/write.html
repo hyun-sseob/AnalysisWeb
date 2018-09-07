@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+	<title> Write </title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="lib/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/shs/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+    <link rel="stylesheet" type="text/css" href="css/write.css">
+    
+     <script type="text/javascript">
+    function getUserNo(){
+		var data = {};
+    	var queryString = location.href.split('?');
+    	var params = queryString[1].split('&');
+    	for (var i=0; i<params.length; i++){
+    		var param = params[i].split('=');
+    		data[param[0]] = param[1];
+    	}
+    	console.log(data);
+    	return data.userNo;
+	}
+    </script>
+    
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$("#view").hide();
+			/* 
+				SITE : https://ckeditor.com
+				TYPE : BASIC > STANDARD > FULL
+			*/
+			var CDN_FULL = "https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js";
+			var CDN_STANDARD = "https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js";
+			var CDN_BASIC = "https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js";
+			$.getScript(CDN_FULL).done(function() {
+		          if (CKEDITOR.instances['edit']) {
+		              CKEDITOR.instances['edit'].destroy(); /* 기존 CKEDITOR 종료 */
+		          }
+		          /* CKEDITOR 생성*/
+		          CKEDITOR.replace('edit', {
+		        	  customConfig: '/shs/resources/js/config.js',
+		        	  filebrowserUploadUrl: '/shs/fileUpload'
+		          });
+		      });
+			
+			
+			$("#write-btn").on("click", function(){
+				// 데이터 가져오기
+				var userNo = getUserNo();
+				var category = $("#viewCategory").val();
+				var title = $("#viewTitle").val();
+				var content = CKEDITOR.instances['edit'].getData();
+				
+				// 데이터 초기화 하기
+				$("#viewTitle").val("");
+				CKEDITOR.instances['edit'].setData("");
+				
+				// 데이터 담기
+				$("#category").val(category);
+				$("#title").val(title);
+				$("#content").val(content);
+				$("#userNo").val(userNo);
+								
+				// 서버로 데이터 전송하기
+				$.ajax({
+					url : "/shs/boardInsert",
+					data : new FormData($("#form")[0]),
+					type : "POST",
+					contentType:false,
+					cache:false,
+					processData:false
+				}).done(function(data){
+					console.log(data);
+					if(data.status == 1){
+						alert("insert성공");
+						location.href="index.html"
+					}else {
+						alert("실패");
+					}
+				});
+			});
+			
+			$("#load").on("click", function(){
+				var title = $("#viewTitle").text();
+				var contents = $("#viewContents").html();
+				$("#view").hide();
+				$("#input").show();
+				$("#title").val(title);
+				CKEDITOR.instances['edit'].setData(contents);
+			});
+			
+		});
+		
+		
+	</script>
+</head>
+
+<body>
+    
+    <div class="wrap-all-con">
+       
+        <div class="top-img"></div>
+        
+        <div class="write-con">
+           
+            <div class="select-write-type">
+                <select class="form-control" id="viewCategory">
+                    <option disabled selected value="Category">Category</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="LINUX">LINUX</option>
+                </select>
+            </div>
+            
+            
+           <section id="input">
+	            <div class="write-title-con">
+	                <input type="text" class="form-control" id="viewTitle" placeholder="제목을 입력하세요.">
+	            </div>
+				<textarea id="edit" name="edit"></textarea>
+			</section>
+            
+            <form id="form" action="" method="post" enctype="multipart/form-data">
+            	<input type="hidden" id="category" name="category">
+            	<input type="hidden" id="title" name="title">
+            	<input type="hidden" id="content" name="content">
+            	<input type="hidden" id="userNo" name="userNo" value="">
+	            <div class="write-input-file">
+	                <input type="file" name="file" class="form-control" multiple="multiple">
+	            </div>
+	            <div class="write-button-con">
+	                <input id="write-btn" type="button" class="btn btn-primary" value="등록">
+	            </div>
+			</form>
+            
+        </div>
+    </div>
+
+
+</body>
+</html>

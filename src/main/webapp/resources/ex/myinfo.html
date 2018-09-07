@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+	<title> information </title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/dls.css">
+	<link rel="stylesheet" type="text/css" href="css/desktop.css">
+	<link rel="stylesheet" type="text/css" href="css/myinfo.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 1259px)" href="css/laptop.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 768px)" href="css/tablet.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 425px)" href="css/mobile.css">
+	<script src="lib/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script>
+    	$(document).ready(function(){
+    		
+    		$("#message-box").show();
+			$("#membership").show();
+    		
+    		$.ajax({
+    			url:"/shs/userLevel"
+    		}).done(function(data){
+    			d = JSON.parse(data);
+    			console.log(d);
+    			
+    			if(d.status == "2"){
+	   				$("#message-box").hide();
+	       			$("#membership").hide();
+    			}
+    		});
+    		
+    		$.ajax({
+    			url: "/shs/userSession"
+    		}).done(function(data){
+    			d = JSON.parse(data);
+    			console.log(d);
+    			
+    			$("#id").empty();
+    			$("#regDate").empty();
+    			
+    			var user = d.userSelectOne;
+    			var id = user.id; 
+    			var passwd = user.password;
+    			var regDate = user.regDate;
+    			
+    			var html = id;
+    			var html2 = regDate;
+    			
+    			$("#id").append(html);
+    			$("#regDate").append(html2);
+    		});
+    		
+    		$("#submit_change").on("click", function(e){
+    			e.preventDefault();
+    			var password = $("#change_pw").val();  
+    			
+    			$.ajax({
+    				url:"/shs/passwordUpdate",
+    				data : {"password" : password}
+    			}).done(function(data){
+    				
+    				var d = JSON.parse(data);
+    				console.log(d);
+    				
+    				if(d.status == 1){
+    					alert("비밀번호 수정이 완료되었습니다. 다시 로그인 해 주세요.");
+    					location.href = "/shs/logout";
+    				}else{
+    					alert("뭔가 실패");
+    				}
+    			});
+    			layerOut();
+    		});
+    		
+    		$("#leave-member").on("click", function(){
+    			$.ajax({
+    				
+    				url:"/shs/userDelete"
+    			}).done(function(data){
+    				d = JSON.parse(data);
+    				
+    				if(d.status == 1){
+    					alert("탈퇴가 정상적으로 처리되었습니다.");
+    					location.href = "/shs/logout";
+    				}else{
+    					alert("실패 (leave-member)");
+    				}
+    			});
+    		});
+    		
+    	});
+    
+    </script>
+    
+</head>
+
+<body>
+    <div id="container">
+        <div id="left">
+            
+            <div id="img-box">
+                <img src="img/profile.jpg">
+            </div>
+            
+            <div class="left-1">
+                <div>
+                    <a href="index.html#right-1" class="sh">
+                        <h3 class="pageMove">portfolio</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index.html#right-3" class="sh">
+                        <h3 class="pageMove">about</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index.html#right-4" class="sh">
+                        <h3 class="pageMove">contact</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="myinfo.html" class="sh">
+                        <h3 class="pageMove">my info</h3>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- right area -->
+        <div id="right">
+           
+           
+            <!--  right-1 start -->
+            <div id="right-1">
+                <hgroup id="hp">
+                   <div id="hp-left">
+                        <div id="leftMenu">
+                            <img src="./img/baseline-dehaze-24px.svg">
+                        </div>
+                    </div>
+                    <div id="hp-right">
+                        <img src="./img/profile-2.jpg">
+                    </div>
+                </hgroup>
+            </div>
+            <!--  right-1 end  -->
+            
+            <div class="top-menu-con">
+                <div><p>내 정보</p></div>
+                <div>
+                    <input type="button" id="message-box" class="btn btn-info" value="쪽지함">
+                    <input type="button" id="membership" class="btn btn-default" value="회원관리">
+                </div>
+            </div>
+            
+            <div class="myinfo-box">
+                <div class="myinfo-box-title">
+                    <p>가 입 정 보</p>
+                </div>
+                <div class="myinfo-box-contents">
+                    <div class="myinfo-box-contents-row">
+                        <div class="contents-row-left">
+                            <p>아이디 :</p>
+                        </div>
+                        <div class="contents-row-right" >
+                            <p id="id"></p>
+                        </div>
+                    </div>
+                    <div class="myinfo-box-contents-row">
+                        <div class="contents-row-left" id="passwd">
+                            <p>비밀번호 :</p>
+                        </div>
+                        <div class="contents-row-right">
+                            <input type="button" id="change-btn" class="btn btn-info" value="비밀번호 수정">
+                        </div>
+                    </div>
+                    <div class="myinfo-box-contents-row last-row">
+                        <div class="contents-row-left">
+                            <p>가입일 :</p>
+                        </div>
+                        <div class="contents-row-right" >
+                            <p id="regDate"></p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="leave-member-con">
+                <div class="contents-row-left"></div>
+                <div class="contents-row-right leave-btn-con">
+                <input type="button" id="leave-member" class="btn btn-danger" value="탈퇴">
+                </div>
+            </div>
+        
+        </div>
+        
+        <!-- ---------------------------------------------- -->
+        
+        <!-- 비번 변경 -->
+        <div class="pw-change-box">
+            <form>
+                <div class="pw-box-text">
+                    <h3>비밀번호 변경</h3><br>
+                </div>
+                <div class="input-group join-box-input">
+                    <input type="password" class="form-control" id="change_pw" name="pass" placeholder="변경하실 비밀번호를 입력하세요.">
+                    <input type="password" class="form-control" id="change_pw_check" placeholder="비밀번호 확인">
+                </div>
+                <div class="join-btn-box">
+                <input type="submit" id="submit_change" class="btn btn-success" value="변경">
+                </div>
+            </form>
+        </div>
+
+        <!-- 레이어 -->
+        <div id="layer"></div>
+        
+        <div id="left-copy" class="ani">
+            <div class="left-1">
+                <div>
+                    <a href="index2.html#right-1">
+                        <h3 class="pageMove">portfolio</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index2.html#right-3" >
+                        <h3 class="pageMove">about</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index2.html#right-4" >
+                        <h3 class="pageMove">contact</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="myinfo.html">
+                        <h3 class="pageMove">my info</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <footer>
+            <div>
+                alright reserved @DLS alright reserved<br>
+                made by hyunsub, sewoong, jeongwon
+            </div>
+        </footer>
+    </div>
+    
+<script src="js/main.js"></script>
+<script>
+
+    $("#layer").on("click", function(){
+        layerOut();
+    });
+    
+    $("#change-btn").on("click", function(){
+        $("#layer").show();
+        $(".pw-change-box").show();
+    });
+    
+    $("#message-box").on("click", function(){
+        location.href = 'message.html';
+    });
+    
+    $("#membership").on("click", function(){
+        location.href = 'admin.html';
+    });
+</script>
+
+</body>
+</html>

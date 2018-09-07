@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="msg">
+
+	<select id="msgList" resultType="HashMap">
+		select * from message where delYn = 'N'
+	</select>
+	
+	<select id="msgInsert" parameterType="HashMap">
+		insert into message 
+			(msgName, msgEmail, msgContents, regDate) 
+		values 
+			(#{msgName},#{msgEmail},#{msgContents},DATE_FORMAT(NOW(),'%Y%m%d'));
+	</select>
+	
+	<select id="msgSelectOne" parameterType="HashMap" resultType="HashMap">
+		select * from message where msgNo = #{msgNo}
+	</select>
+	
+	<update id="msgDelete" parameterType="HashMap">
+		update message set delYn = 'Y' where msgNo = #{msgNo}	
+	</update>
+	
+</mapper>

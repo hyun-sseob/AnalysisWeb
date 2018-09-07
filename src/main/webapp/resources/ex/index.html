@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+	<title> Title </title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/dls.css">
+	<link rel="stylesheet" type="text/css" href="css/desktop.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 1259px)" href="css/laptop.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 768px)" href="css/tablet.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 425px)" href="css/mobile.css">
+	<!-- <script src="lib/jquery.min.js"></script> -->
+	<script type="text/javascript" src="/shs/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+	
+ 	<script>
+ 		$(document).ready(function(){
+ 			$.ajax({
+ 				type:"post",
+ 				url : "/shs/boardList"
+ 			}).done(function(data){
+ 				
+ 				var d = JSON.parse(data)
+ 				var filesAndboard = d.filesAndboard;
+		 		console.log(filesAndboard);
+ 				HTML(filesAndboard);
+					$(".arc-con").on("click", function(){
+						
+ 					var index = $(".arc-con").index(this);
+ 					
+ 					var boardNo = filesAndboard[index].boardNo;
+ 					console.log(boardNo);
+ 					location.href = "/shs/resources/ex/detail.html?boardNo=" + boardNo;
+ 				});
+ 			});
+ 		});
+ 		
+		function HTML(data){
+			
+			$(".arc").empty();
+			
+			for(var i=0; i<data.length; i++){
+				
+				var fileURL = data[i].fileURL;
+				var title = data[i].boardTitle;
+				var contents = data[i].boardContents;
+				
+				var html = '<div class="arc-con dls-third">';
+				html += '<div class="arc-box">';
+				html += '<div class="arc-box-img" id="java">';
+				html += '<a href="#">';
+				html += "<img src='" + fileURL + "'>";
+				html += '</a>';
+				html += '</div>';
+				html += '<div class="arc-box-text">';
+				html += '<h5 class="b_T">' + title + '</h5>';
+				html += '<p class="b_C">' + contents + '</p>';
+				html += '</div>';
+				html += '</div>';
+				html += '</div>';
+				
+				$(".arc").append(html);
+			}
+		}
+		$.ajax({
+			url:"/shs/aboutList"
+		}).done(function(data){
+			
+			d = JSON.parse(data);
+			console.log(d);
+			
+			profile = d.profile;
+			resumeI = d.resumeI;
+			resumeR = d.resumeR;
+			resumeS = d.resumeS;
+			
+			$("#about").empty();
+								
+			var html = '<h1>About me</h1>';
+			html += '<p><span style="font-size: 18px;">'+ profile.name +'</span></p>';
+			html += '<p>'+ profile.birthday +'</p>';
+			
+// 			var html2 = "";
+			
+			for(var i =0; i<resumeI.length; i++){
+				html += '<p>한줄소개: <b>'+ resumeI[i].resume +'</b></p>';
+			}
+			
+			for(var i =0; i<resumeR.length; i++){
+				html += '<p>'+ resumeR[i].resume +'</p>';
+			}
+			
+			for(var i =0; i<resumeS.length; i++){
+				html += '<p>'+ resumeS[i].resume +'</p>';
+			}
+			$("#about").append(html);
+// 			$("#about").append(html2);
+		});
+		
+		$.ajax({
+				url:"/shs/sessionCheck"
+			}).done(function(data){
+				d = JSON.parse(data);
+				
+				console.log(d.result);
+				
+				if(d.result == 0){
+					$("#login").show();
+					$("#logout").hide();
+					$("#myinfo").hide();
+					$("#write-btn").hide();
+				}else if(d.result == 1) {
+					$("#login").hide();
+					$("#logout").show();
+					$("#myinfo").css("display","block");
+					$("#write-btn").show();
+				}
+			});
+	
+ 	</script>
+ 	
+ 	
+ 	
+</head>
+<body>
+    <div id="container">
+               <!-- left 시작 -->
+        <div id="left" class="ani">
+            <div id="img-box">
+                <img src="img/profile.jpg">
+            </div>
+            <div class="left-1">
+                <div>
+                    <a href="#right-1" class="sh">
+                        <h3 class="pageMove">portfolio</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="#right-3" class="sh">
+                        <h3 class="pageMove">about</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="#right-4" class="sh">
+                        <h3 class="pageMove">contact</h3>
+                    </a>
+                </div>
+                 <div id="myinfo">
+                    <a href="myinfo.html">
+                        <h3 class="pageMove">my info</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+            <!--  right-1 start -->
+        <div id="right">
+            <div id="right-1">
+                <div id="hp">
+                   <div id="hp-left">
+                        <div id="leftMenu1">
+                            <img id="leftMenu" src="./img/baseline-dehaze-24px.svg">
+                        </div>
+                        
+                        <h1 id="portfolio">My Portfolio</h1>
+                        <div id="filter">
+                            <a href="#">ALL</a>
+                            <a href="#">JAVA</a>
+                            <a href="#">PYTHON</a>
+                            <a href="#">LINUX</a>
+                        </div>
+                    </div>
+                    <div id="hp-right">
+                        <img src="./img/profile-2.jpg">
+                        
+                        <div id="login" class="btn btn-default">Login</div>
+                        
+                         <div id="logout" class="btn btn-default">Logout</div>
+                        
+                    </div>
+                   <div id="div_hr">
+                     <hr>
+                   </div>
+                </div>
+            </div>
+            <!--  right-1 end  -->
+            
+            <!--  right-2 portfolio start  -->
+            <div id="right-2">
+            
+            	<!-- 데이터넣는곳 -->
+                <article class="arc"></article>
+                
+                <div id="writebtn">
+                    <input type="button" id="write-btn" class="btn btn-primary"  value="글쓰기">
+                </div>
+                        <!-- 페이징 -->
+                <div class="paging-box">
+                <ul class="pagination">
+                    <li><a href="#">&lt;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&gt;</a></li>
+                </ul>
+                </div>
+            </div>
+            <!--  right-2 end  -->
+            
+            <!--  about me 시작부분 -->
+            <div id="right-3">
+                <article id="about"></article>
+                    <!-- 스킬 -->
+                <article id="skills">
+                    <h1>Skills Level</h1>
+                     <div class="skills-con">
+                         <h4>JAVA</h4>
+                         <div class="bar_100">
+                             <div class="sub_bar_95 bar">95%</div>
+                         </div>
+                     </div>
+                     
+                      <div class="skills-con">
+                         <h4>PYTHON</h4>
+                         <div class="bar_100">
+                             <div class="sub_bar_85 bar">85%</div>
+                         </div>
+                      </div>
+                      
+                      <div class="skills-con">
+                         <h4>LINUX</h4>
+                         <div class="bar_100">
+                             <div class="sub_bar_80 bar">80%</div>
+                         </div>
+                      </div>
+                </article>
+            </div>
+            <!--  about me 종료 부분  -->
+            
+            
+            <!--  right-4 contact me 부분 start  -->
+            <div id="right-4">
+                <article id="contact">
+                    <h1>Contact me</h1>
+                    <div class="rows">
+                        <div class="dls-three contact-text">
+                            <p>tpdnddl12@naver.com</p>
+                        </div>
+                        <div class="dls-three contact-text">
+                            <p>수원시 팔달구 중부대로 110</p>
+                        </div>
+                        <div class="dls-three contact-text">
+                            <p>01044528956</p>
+                        </div>
+                    </div>
+                        <!--  메세지 부분  -->
+                    <article id="contact_info">
+                        <h2>Messaging</h2>
+                        <div class="form-group">
+                            <label for="usr">보내시는 분 이름</label>
+                            <input type="text" class="form-control" id="usrName">
+                        </div>
+                        <div class="form-group">
+                            <label for="usr">보내시는 분 메일주소</label>
+                            <input type="text" class="form-control" id="usrMail">
+                        </div><div class="form-group">
+                            <label for="usr">메시지</label>
+                        <textarea rows="3" type="text" class="form-control" id="usrMessage">
+                        </textarea>
+                        </div>
+
+                        <input type="submit" class="btn btn-default" name="send"  id="send" value="Send Message">
+
+                    </article>
+                </article>
+            </div>
+            <!--  right-4 end  -->
+            
+        <div id="temp_div" style="background-color: white"></div>
+        
+        </div>
+        
+        <!-- -----------------풋터------------------- -->
+        
+        <footer>
+            <div>
+                alright reserved @DLS alright reserved<br>
+                made by hyunsub, sewoong, jeongwon
+            </div>
+        </footer>
+    </div>
+   
+   <!-- 로그인 모달 -->
+    <div id="login-box">
+        <form method="post">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input id="email" type="email" class="form-control" name="email" placeholder="Email">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="login-btn-box">
+            <input type="button" id="regBtn" class="btn btn-default" value="Join">
+            <input type="submit" id="loginBtn" class="btn btn-info" value="Login">
+            </div>
+        </form>
+    </div>
+    
+    <!-- 회원가입 모달 -->
+    <div class="join-box">
+        <form>
+            <div class="join-box-text">
+                <h3>회원가입</h3><br>
+            </div>
+            <div class="input-group join-box-input">
+                <input type="text" class="form-control" id="join_email" name="join_email" placeholder="입력하신 메일주소로 이메일 확인용 메일이 발송됩니다.">
+            </div>
+            <div class="join-btn-box">
+            <input type="submit" id="submit_join" class="btn btn-info" value="인증">
+            </div>
+        </form>
+    </div>
+    
+    <!-- 회원가입 메일 발송 메시지 -->
+    <div class="send-mail">
+        <form>
+            <div class="join-box-text">
+                <h3>회원가입</h3><br>
+            </div>
+            <div class="send-mail-message">
+                <p>메일발송을 완료했습니다. 메일계정을 확인해주세요.</p>
+            </div>
+        </form>
+    </div>
+    
+    <!-- 레이어 -->
+    <div id="layer"></div>
+
+    <!-- input type hidden -->
+    <input id="check" type="hidden" name="check" value="0">
+    
+    
+    <!-- side menu -->
+    <div class="side-menu">
+     
+    </div>
+    
+    <div id="left-copy" class="ani">
+              
+            <div class="left-1">
+                <div>
+                    <a href="#right-1" class="sh">
+                        <h3 class="pageMove">portfolio</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="#right-3" class="sh">
+                        <h3 class="pageMove">about</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="#right-4" class="sh">
+                        <h3 class="pageMove">contact</h3>
+                    </a>
+                </div>
+            </div>
+    </div>
+<script src="js/main.js"></script>
+
+</body>
+</html>

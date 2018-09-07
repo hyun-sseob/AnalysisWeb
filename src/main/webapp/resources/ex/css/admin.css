@@ -1,0 +1,64 @@
+.container {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 200px;
+    min-width: 470px;
+}
+
+#admin-top {
+    width: 100%;
+}
+
+#admin-left {
+    float: left;
+}
+
+#admin-right {
+    float: right;
+}
+
+#confirm, #cancle {
+    float: right;
+    margin-left: 5px;
+    display: none;
+}
+
+.admin-table {
+    width: 100%;
+    min-width: 430px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.admin-table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42;
+    text-align: left;0.
+    margin-top: 10px;
+}
+
+.admin-table>thead>tr>th:nth-child(1){text-align: left; padding-left: 0;}
+.admin-table>thead>tr>th:nth-child(2){ width: 22%;}
+.admin-table>thead>tr>th:nth-child(3){ width: 20%;}
+.admin-table>thead>tr>th:nth-child(4){ width: 38%;}
+.admin-table>thead>tr>th:nth-child(5){ width: 20%;}
+.admin-table>tbody>tr>td:nth-child(1){text-align: left;}
+.admin-check-box, #admin-head-check  {display: none;}
+
+.admin-table>tbody>tr>td {
+    padding: 8px;
+    line-height: 1.42;
+    text-align: left;
+    border-top: 1px solid #ccc;
+}
+
+.admin-table>tbody>tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+select:hover{
+    cursor: pointer;
+}

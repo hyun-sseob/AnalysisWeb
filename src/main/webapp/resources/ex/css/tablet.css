@@ -1,0 +1,64 @@
+ #left {
+    display: none;
+}
+
+body {
+    width: 100%;
+}
+
+#right {
+    width: 100%;
+}
+
+#login, #logout {
+    margin-top: 100px;
+    margin-right: 10px;
+}
+
+#hp {
+    height: 100px;
+}
+
+#logout {
+}
+
+#hp-right img {
+    display: block;
+    float: right;
+    margin-right: 10px;
+}
+
+#leftMenu {
+    display: block;
+/*    position: fixed;
+    opacity: 0.7;*/
+}
+
+/* 포트폴리오 컨텐츠 하나하나를 감싸는 DIV 컨텐츠의 width에 영향 */
+.arc-box {
+    width: 95%;
+    min-width: 180px;
+}
+
+.arc-box img {
+    width: 100%;
+}
+
+footer {
+    margin-left: 0;
+}
+
+footer, footer > div {
+    width: 100%;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: aqua;
+    display: none;
+}
+

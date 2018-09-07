@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Update</title>
+
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="lib/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/shs/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+    <link rel="stylesheet" type="text/css" href="css/write.css">
+</head>
+ <script type="text/javascript">
+		$(document).ready(function(){
+			function getBoardNo(){
+				var data = {};
+		    	var queryString = location.href.split('?');
+		    	var params = queryString[1].split('&');
+		    	for (var i=0; i<params.length; i++){
+		    		var param = params[i].split('=');
+		    		data[param[0]] = param[1];
+		    	}
+		    	console.log(data);
+		    	return data.boardNo;
+			}
+			var boardNo = getBoardNo();
+	    	console.log(boardNo);
+			$("#view").hide();
+			/* 
+				SITE : https://ckeditor.com
+				TYPE : BASIC > STANDARD > FULL
+			*/
+			var CDN_FULL = "https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js";
+			var CDN_STANDARD = "https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js";
+			var CDN_BASIC = "https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js";
+			$.getScript(CDN_FULL).done(function() {
+		          if (CKEDITOR.instances['edit']) {
+		              CKEDITOR.instances['edit'].destroy(); /* 기존 CKEDITOR 종료 */
+		          }
+		          /* CKEDITOR 생성*/
+		          CKEDITOR.replace('edit', {
+		        	  customConfig: '/shs/resources/js/config.js',
+		        	  filebrowserUploadUrl: '/shs/fileUpload'
+		          });
+		          getBoard();
+		      });
+			
+	    	function getBoard(){
+				$.ajax({
+					type:"post",
+	    			url:"/shs/boardOne",
+	    			data:{"boardNo" : boardNo}
+	    		}).done(function(data){
+	    			
+	    			d = JSON.parse(data);
+	    			
+	    			var boardOne = d.boardOne;
+	    			
+	    			var category = boardOne.category;
+	    			var boardContents = boardOne.boardContents;
+	    			var boardTitle = boardOne.boardTitle; 
+	    			
+	    			console.log(boardOne);
+	    			$("#viewcategory").text(category);
+	    			$("#viewTitle").val(boardTitle);
+	    			CKEDITOR.instances['edit'].setData(boardContents);
+				});
+	    	}
+			
+			$("#write-btn").on("click", function(){
+				
+				var category = $("#viewCategory").val();
+				var title = $("#viewTitle").val();
+				var content = CKEDITOR.instances['edit'].getData();
+				
+				$.ajax({
+					type:"post",
+					url:"/shs/boardUpdate",
+					data : {
+						"boardNo" : boardNo,
+						"category": category,
+						"boardTitle":title,
+						"boardContents":content
+					}
+				}).done(function(data){
+					var d = JSON.parse(data)
+					
+					if(d.status == 1){
+						alert("성공");
+						location.href = "index.html";	
+					}
+				});
+			});
+		});
+ </script>
+ 
+<body>
+
+	<div class="wrap-all-con">
+       
+        <div class="top-img"></div>
+        
+        <div class="write-con">
+           
+            <div class="select-write-type">
+                <select class="form-control" id="viewCategory">
+                    <option disabled selected value="category" id="viewcategory"></option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="LINUX">LINUX</option>
+                </select>
+            </div>
+            
+           <section id="input">
+	            <div class="write-title-con">
+	                <input type="text" class="form-control" id="viewTitle" placeholder="제목을 입력하세요.">
+	            </div>
+				<textarea id="edit" name="edit"></textarea>
+			</section>
+            
+            <form id="form" action="" method="post" enctype="multipart/form-data">
+            	<input type="hidden" id="category" name="category">
+            	<input type="hidden" id="title" name="title">
+            	<input type="hidden" id="content" name="content">
+	           
+	            <div class="write-button-con">
+	                <input id="write-btn" type="button" class="btn btn-primary" value="수정">
+	            </div>
+			</form>
+            
+        </div>
+    </div>
+</body>
+</html>

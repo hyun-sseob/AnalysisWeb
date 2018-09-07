@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+	<title> Title </title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/dls.css">
+	<link rel="stylesheet" type="text/css" href="css/join.css">
+	
+	<script src="lib/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+</head>
+
+<body>
+    
+    <div class="bodycon">
+    <div class="join-con">
+        <h1>가입정보 입력</h1>
+        <div id="join-1">
+            <div class="form-group">
+                <label for="usr">아이디</label>
+                <input type="email" class="form-control" id="usr" placeholder="이메일형식으로 기입해주세요." required="required">
+            </div>
+            <div class="form-group">
+                <label for="user-Nm">이름</label>
+                <input type="text" class="form-control" id="user-Nm" placeholder="이름을 입력하세요." required="required">
+            </div>
+            
+            <div class="form-group">
+                <label for="pwd">비밀번호</label>
+                <input type="password" class="form-control" id="pwd" placeholder="비밀번호는 10자리 이하로 입력해주세요" maxlength="10" minlength="4" required="required">
+            </div>
+            
+            <div id="join-bottom">
+                <button type="submit" class="btn btn-primary" id="joinBtn">가입</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+    $("#joinBtn").on("click", function(){
+    	
+    	var id = $("#usr").val();
+    	var userName = $("#user-Nm").val();
+    	var password = $("#pwd").val();
+    	
+    	$.ajax({
+    		type:"post",
+			url:"/shs/userInsert",
+			data : { 
+				"id" : id,
+				"userName" : userName,
+				"password" : password
+			}
+		}).done(function(data){
+			d = JSON.parse(data);
+			
+			if(d.status == 1){
+				alert("성공");
+        		location.href = 'index.html';
+			}
+		})
+    	
+    });
+    </script>
+</body>
+</html>

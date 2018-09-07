@@ -1,0 +1,17 @@
+.dls-third {
+    width: 50%;
+}
+
+/* 포트폴리오 컨텐츠 하나하나를 감싸는 DIV 컨텐츠의 width에 영향 */
+.arc-box {
+    width: 95%;
+    min-width: 200px;
+}
+
+.arc-box img {
+    width: 100%;
+}
+
+footer {
+    margin-left: 10vw;
+}

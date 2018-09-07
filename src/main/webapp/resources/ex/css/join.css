@@ -1,0 +1,37 @@
+html {margin:0; padding:0;}
+body {width: 100%;}
+.bodycon {
+    width: 100%;
+    height: 454px;
+    padding: 32px;
+}
+
+.join-con {
+    font-family: 'Nanum Gothic', sans-serif;
+    padding: 32px;
+    max-width: 600px;
+    min-width: 300px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.join-con h1 {
+    text-align: center;   
+}
+
+#join-bottom {
+    text-align: center;
+}
+
+#join-bottom button {
+    font-family: 'Nanum Gothic', sans-serif;
+    width: 100%;
+    font-size: 20px;
+    letter-spacing: 5px;
+}
+
+.form-group > label {
+    margin-left: 5px;
+}

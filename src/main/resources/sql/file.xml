@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="file">
+
+  <insert id="insert" parameterType="HashMap">
+  	<selectKey keyProperty="boardNo" resultType="Integer" order="BEFORE"> <!-- mybatis에서 제공해줌 위의getBoardNo의 역할을 selectkey로 한번에 할 수 있게 해준다. -->
+			select 
+				case when max(boardNo) > 0 then max(boardNo)
+					else 1
+				end as boardNo
+			from board
+	</selectKey>
+  	insert into files 
+		(boardNo, fileName, fileURL, userNo, regDate)
+	values
+		(#{boardNo},#{fileName},#{fileURL},#{userNo},DATE_FORMAT(NOW(),'%Y%m%d'));
+  </insert>
+  
+</mapper>
+

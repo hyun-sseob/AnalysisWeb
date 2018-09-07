@@ -1,0 +1,52 @@
+/* grid */
+.dls-content {max-width: 960px; margin: auto;}
+.dls-bi {width: 50%; float: left;}
+.dls-third {width: 33.33333%; float: left;}
+.dls-top {top: 0; position: fixed!important; width: 100%; z-index: 1;}
+/* position */
+.dls-display-left {position: absolute; top: 50%; left: 0%; transform: translate(0%, -50%);}
+/* text */
+.dls-center {text-align: center!important;}
+.dls-justify {text-align: justify!important;}
+.dls-wide {letter-spacing: 4px;}
+.dls-text-white{color:white;}
+.dls-text-black{color:black;}
+/* font-size */
+.dls-tiny{font-size:10px!important}
+.dls-small{font-size:12px!important}
+.dls-medium{font-size:15px!important}
+.dls-large{font-size:18px!important}
+.dls-xlarge{font-size:24px!important}
+.dls-xxlarge{font-size:36px!important}
+.dls-xxxlarge{font-size:48px!important}
+.dls-jumbo{font-size:64px!important}
+/* margin, padding */
+.dls-margin{margin:16px!important}
+.dls-margin-top{margin-top:16px!important}
+.dls-margin-bottom{margin-bottom:16px!important}
+.dls-margin-left{margin-left:16px!important}
+.dls-margin-right{margin-right:16px!important}
+.dls-padding-small{padding:4px 8px!important}
+.dls-padding{padding:8px 16px!important}
+.dls-padding-large{padding:12px 24px!important}
+.dls-padding-16{padding-top:16px!important;padding-bottom:16px!important}
+.dls-padding-24{padding-top:24px!important;padding-bottom:24px!important}
+.dls-padding-32{padding-top:32px!important;padding-bottom:32px!important}
+.dls-padding-48{padding-top:48px!important;padding-bottom:48px!important}
+.dls-padding-64{padding-top:64px!important;padding-bottom:64px!important}
+/* float */
+.dls-left{float:left!important}
+.dls-right{float:right!important}
+/* color */
+.dls-black {color:#fff!important; background-color: #000!important}
+.dls-white {background-color: #fff!important;}
+/* opacity */
+.dls-opacity, dls-hover-opacity:hover {opacity: 0.60;}.dls-opacity-off,.dls-hover-opacity-off:hover{opacity:1}
+/* ul */
+.dls-ul {list-style-type: none; padding: 0; margin: 0;}
+/* border */
+.dls-border-0{border:0!important}.dls-border{border:1px solid #ccc!important}
+
+
+/* display */
+@media (max-width: 767px) .dls-hide-small {display: none!important}

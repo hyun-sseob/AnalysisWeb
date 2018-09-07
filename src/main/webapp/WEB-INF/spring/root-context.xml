@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- Datasource 생성 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="jdbc:mysql://gudi.kr:3306/shs"/>
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+		<property name="username" value="shs"/>
+		<property name="password" value="shs"/> 		<!-- db연결 -->
+	</bean>
+	
+	<!-- SqlSessionFactory 생성 -->
+	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">  <!-- Sqlconnection이 생성된다. 이것이 생성되면 DB가 연결이된다. -->
+		<property name="mapperLocations" value="classpath:/sql/*.xml"/>
+		<property name="dataSource" ref="dataSource"/> <!-- ref : 참조  -->		<!-- mybatis 셋팅 -->
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> <!-- sqlsessionfactory라는 sql창고가 생기는데 거기서 하나씩 빼서 쓰겠다 ! -->
+		<constructor-arg name="sqlSessionFactory" ref="factoryBean"/>	<!-- 얘를 쓰기위해 위의 두개가 필요하다 참조(ref) datasource -> 참조 factorybean 한것이 session -->
+	</bean>	
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760" />
+		<property name="maxInMemorySize" value="104857600" />
+	</bean>
+	
+</beans>

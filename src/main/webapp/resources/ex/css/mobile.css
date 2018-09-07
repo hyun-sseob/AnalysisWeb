@@ -1,0 +1,39 @@
+body {
+    min-width: 320px;
+}
+
+.dls-third {
+    width: 100%;
+}
+
+.rows div {
+    width: 100%;
+    text-align: center;
+}
+
+#filter {
+    height: 40px;
+}
+
+#filter a{
+    font-size: 0.8em;
+}
+
+footer, footer > div {
+    width: 100%;
+}
+.dls-third {
+    margin: 0;
+}
+
+#login-box {
+    height: 180px;
+}
+
+#login {
+    margin-left: -10px;
+}
+
+#logout a, #login a {margin-left: -24px;}
+
+#logout a {margin-top: 5px;}
